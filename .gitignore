@@ -1,0 +1,11 @@
+data/
+*.db
+*.db-wal
+*.db-shm
+*.log
+__pycache__/
+*.pyc
+.env
+*.pt
+*.pkl
+*.pickle

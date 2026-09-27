@@ -1,0 +1,11 @@
+# TimesFM-3 선택 기능 + 공개 데이터 평가 (models/eval_timesfm.py)
+# Apple Silicon: timesfm[mlx] / 그 외: timesfm[torch]
+# 가중치 라이선스: timesfm-non-commercial-license-v1.0 (비상업·비프로덕션 — 실거래 금지)
+timesfm[mlx]==3.0.2; sys_platform == "darwin" and platform_machine == "arm64"
+timesfm[torch]==3.0.2; sys_platform != "darwin" or platform_machine != "arm64"
+lightgbm
+numpy
+pandas
+scipy
+scikit-learn
+finance-datareader

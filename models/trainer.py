@@ -237,12 +237,16 @@ class Trainer:
                 boosted += 1
 
         # 2. 시간 감쇠 (최신 데이터 = 높은 가중치)
+        # 나이는 행 순서가 아니라 거래일 기준: 행이 종목별로 묶여 있어서
+        # 행 번호를 쓰면 마지막 종목들이 "최신"으로 취급된다.
         if n > 1:
             halflife = TIME_DECAY_HALFLIFE
-            for i in range(n):
-                age = n - 1 - i  # 0=최신, n-1=가장 오래됨
-                decay = math.pow(0.5, age / halflife)
-                weights[i] *= decay
+            dates = sorted({str(date) for _, date in labels})
+            newest = len(dates) - 1
+            day_index = {d: k for k, d in enumerate(dates)}
+            for i, (_, date) in enumerate(labels):
+                age = newest - day_index[str(date)]  # 0=최신 거래일
+                weights[i] *= math.pow(0.5, age / halflife)
 
         # 3. Uniqueness weighting (소수 클래스에 더 높은 가중치)
         if len(y) == n:
